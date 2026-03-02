@@ -1,0 +1,65 @@
+/*
+ * Copyright (c) 2026 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <physical_layouts.dtsi>
+
+/ {
+	chosen {
+		zmk,kscan = &kscan0;
+	};
+
+	default_transform: keymap_transform_0 {
+		compatible = "zmk,matrix-transform";
+		columns = <3>;
+		rows = <1>;
+		map = <
+		// 	D3 P0.3   NFC1 P0.28   NFC1 P0.9
+				RC(0,0)   RC(0,1)      RC(0,2)      // D0 P0.2
+		>;
+	};
+
+	kscan0: kscan {
+		compatible = "zmk,kscan-gpio-matrix";
+		label = "KSCAN";
+		diode-direction = "col2row";
+		wakeup-source;
+		row-gpios
+			= <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			;
+		col-gpios
+			= <&gpio0 3 GPIO_ACTIVE_HIGH>
+			, <&gpio0 28 GPIO_ACTIVE_HIGH>
+			, <&gpio0 9 GPIO_ACTIVE_HIGH>
+			;
+	};
+
+	trackpuck_col_layout: trackpuck_col_layout {
+			compatible = "zmk,physical-layout";
+			display-name = "trackpuck";
+
+			transform = <&default_transform>;
+			kscan = <&kscan0>;
+
+			keys  //                     w   h    x    y     rot    rx    ry
+					= <&key_physical_attrs 100 100    0    0       0     0     0>
+					, <&key_physical_attrs 100 100  100   12       0     0     0>
+					, <&key_physical_attrs 100 100  200   25       0     0     0>
+			;
+	};
+
+	trackpuck_position_map {
+			compatible = "zmk,physical-layout-position-map";
+			complete;
+			ten {
+					physical-layout = <&trackpuck_col_layout>;
+					positions
+							= < 0  1  2  >
+					;
+			};
+	};
+
+};

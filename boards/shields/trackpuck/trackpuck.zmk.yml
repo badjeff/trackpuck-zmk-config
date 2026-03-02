@@ -1,0 +1,11 @@
+file_format: "1"
+id: trackpuck
+name: trackpuck
+type: shield
+url: https://github.com/badjeff/trackpuck/
+requires: [pro_micro]
+exposes: []
+features:
+  - keys
+siblings:
+  - trackpuck

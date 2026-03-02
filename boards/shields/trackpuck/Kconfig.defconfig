@@ -1,0 +1,6 @@
+if SHIELD_TRACKPUCK
+
+config ZMK_KEYBOARD_NAME
+	default "Trackpuck"
+
+endif
