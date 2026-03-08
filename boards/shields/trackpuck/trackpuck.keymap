@@ -19,7 +19,6 @@
 
 #define BASE 0
 #define PROFILE 1
-#define SETUP 2
 
 &zip_report_rate_limit {
         limit-ble-only;
@@ -92,57 +91,54 @@
  
         // button position view form top 
         //
-        //  0 1 2
+        //  0 1   2 3
         //
         combos {
                 compatible = "zmk,combos";
 
                 go_to_profile {
                         timeout-ms = <80>;
-                        key-positions = <0 1 2>;
+                        key-positions = <0 1 2 3>;
                         bindings = <&to PROFILE>;
                         layers = <BASE>;
                 };
 
+                use_ble {
+                        timeout-ms = <80>;
+                        key-positions = <0 1>;
+                        bindings = <&out OUT_BLE>;
+                        layers = <PROFILE>;
+                };
+
+                use_usb {
+                        timeout-ms = <80>;
+                        key-positions = <2 3>;
+                        bindings = <&out OUT_USB>;
+                        layers = <PROFILE>;
+                };
+
                 bt_clr {
                         timeout-ms = <80>;
-                        key-positions = <0 2>;   // DANGER combo
+                        key-positions = <0 3>;   // DANGER combo
                         bindings = <&bt BT_CLR>;
                         layers = <PROFILE>;
                 };
 
-                go_to_setup {
+                tog_profile {
                         timeout-ms = <80>;
-                        key-positions = <0 1 2>;
-                        bindings = <&to SETUP>;
+                        key-positions = <0 1 2 3>;
+                        bindings = <&tog PROFILE>;
                         layers = <PROFILE>;
-                };
-
-                dfu {
-                        timeout-ms = <80>;
-                        key-positions = <0 2>;   // DANGER combo
-                        bindings = <&bootloader>;
-                        layers = <SETUP>;
-                };
-
-                tog_setup {
-                        timeout-ms = <80>;
-                        key-positions = <0 1 2>;
-                        bindings = <&tog SETUP>;
-                        layers = <SETUP>;
                 };
         };
 
         keymap {
                 compatible = "zmk,keymap";
                 base_layer {
-                        bindings = < &jskp 0  &jskp 1  &jskp 2 >;
+                        bindings = < &jskp 0  &jskp 1  &jskp 2  &jskp 3 >;
                 };
                 profile_layer {
-                        bindings = < &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2 >;
-                };
-                setup_layer {
-                        bindings = < &out OUT_BLE  &sys_reset  &out OUT_USB >;
+                        bindings = < &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3 >;
                 };
        };
 };

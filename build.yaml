@@ -13,6 +13,6 @@
 #
 ---
 include:
-  - board: xiao_ble
+  - board: xiao_ble//zmk
     shield: trackpuck
     # snippet: studio-rpc-usb-uart
